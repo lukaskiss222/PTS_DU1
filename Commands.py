@@ -5,16 +5,19 @@ class Command(object):
     This is Command Design pattern
     """
 
-    def __init__(self, database):
+    def __init__(self, cursor):
         """Initialize Command Abstract Class
         Should be override
+        Also create variable database, which holds refernce to class database
 
-        :database: TODO
-        :returns: TODO
-
+        :cursor: on this we can perform SQL statment
         """
-        raise NotImplementedError("subclass must override __init__")
-
+        self.cursor = cursor
+        #Setting atributes of functions, which i would like to decorate
+        for temp in Command.__dict__:
+            if type(Command.__dict__[temp])==type(Command.__init__):
+                setattr(Command.__dict__[temp],'decorate',True)
+            
     def execute(self):
         """This function execute command 
 
