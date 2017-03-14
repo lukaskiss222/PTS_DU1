@@ -18,4 +18,5 @@ class Database(object):
         return sha256(str.encode("UTF-8")).hexdigest()
 
     def close(self):
+        self.conn.commit()#I commit all changes, what i have done. It is necessery, if you want save changes
         self.conn.close() 

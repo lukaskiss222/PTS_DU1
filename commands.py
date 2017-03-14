@@ -57,7 +57,6 @@ class CommandQuit(Command):
         """QUIT program if password is correct
 
         """
-        self.database.conn.commit()#I commit all changes, what i have done. It is necessery, if you want save changes
         self.database.close()
         sys.exit(0)
 @login_class
