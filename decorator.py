@@ -1,6 +1,6 @@
 import login
 
-def login_class(Cls):
+def login_decorator(Cls):
     """decorate class, make it login
 
     :Cls: input class

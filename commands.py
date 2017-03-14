@@ -1,4 +1,4 @@
-from decorator import login_class
+from decorator import login_decorator
 import sys
 class Command(object):
 
@@ -40,7 +40,7 @@ class CommandHistory(object):
         """
         self.history.append(command)
         command.execute()
-@login_class
+@login_decorator
 class CommandQuit(Command):
 
     """QUIT Command"""
@@ -59,7 +59,7 @@ class CommandQuit(Command):
         """
         self.database.close()
         sys.exit(0)
-@login_class
+@login_decorator
 class CommandPoints(Command):
 
     """Points Command
@@ -89,7 +89,7 @@ class CommandPoints(Command):
         points = row[1]
         points += self.points
         cur.execute("UPDATE players SET points=:points WHERE id=:id", {"points": points, "id": row_id})
-@login_class
+@login_decorator
 class CommandReduce(Command):
 
     """Reduce all players points by percentage"""
@@ -112,7 +112,7 @@ class CommandReduce(Command):
         percentage = self.percentage/100
         iterator = map(lambda player: (int(player[1]*percentage), player[0]), array) # reduce all players
         cur.executemany("Update players SET points=(?) WHERE id=(?)", iterator)
-@login_class
+@login_decorator
 class CommandJunior(Command):
 
     """show set name to junior"""
