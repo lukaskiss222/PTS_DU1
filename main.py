@@ -10,9 +10,15 @@ while True:
         temp = commands.CommandQuit(database)
     elif command.startswith("points "):
         para = command.split(" ")
-        temp = commands.CommandPoints(database,para[1],int(para[2]))
+        temp = commands.CommandPoints(database, para[1], int(para[2]))
     elif command.startswith("reduce "):
         para = command.split(" ")
-        temp = commands.CommandReduce(database,int(para[1]))
-
+        temp = commands.CommandReduce(database, int(para[1]))
+    elif command.startswith("junior"):
+        para = command.split(" ")
+        temp = commands.CommandJunior(database, para[1])
+    elif command.startswith("ranking junior"):
+        temp = commands.CommandRankingJunior(database)
+    elif command.startswith("ranking"):
+        temp = commands.CommandRanking(database)
     history.addAndExecute(temp)

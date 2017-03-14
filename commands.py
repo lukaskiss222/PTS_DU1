@@ -57,9 +57,10 @@ class CommandQuit(Command):
         """QUIT program if password is correct
 
         """
+        self.database.conn.commit()#I commit all changes, what i have done. It is necessery, if you want save changes
         self.database.close()
         sys.exit(0)
-
+@login_class
 class CommandPoints(Command):
 
     """Points Command
@@ -89,7 +90,7 @@ class CommandPoints(Command):
         points = row[1]
         points += self.points
         cur.execute("UPDATE players SET points=:points WHERE id=:id", {"points": points, "id": row_id})
-
+@login_class
 class CommandReduce(Command):
 
     """Reduce all players points by percentage"""
@@ -112,4 +113,53 @@ class CommandReduce(Command):
         percentage = self.percentage/100
         iterator = map(lambda player: (int(player[1]*percentage), player[0]), array) # reduce all players
         cur.executemany("Update players SET points=(?) WHERE id=(?)", iterator)
+@login_class
+class CommandJunior(Command):
 
+    """show set name to junior"""
+
+    def __init__(self, database, name):
+        """initialize command junior
+        """
+        Command.__init__(self, database)
+        self.name = name
+    def execute(self):
+        cur = self.database.conn.cursor()
+        cur.execute("SELECT id from players WHERE name=:name", {"name": self.name})
+        row = cur.fetchone()
+        if row is None:
+            print("Wong name")
+            return
+        row_id = row[0]
+        cur.execute("UPDATE players SET junior=1 WHERE id=:id", {"id": row_id})
+
+class CommandRanking(Command):
+
+    """Show global Ranking"""
+
+    def __init__(self, database):
+        """Initialize command Ranking
+        """
+        Command.__init__(self, database)
+
+    def execute(self):
+        cur = self.database.conn.cursor()
+        print("NAME--------------------Junior--------------------POINTS")
+        for row in cur.execute("SELECT name,junior,points from players"):
+            print("%24s%6s%26s" % row)
+        
+class CommandRankingJunior(Command):
+
+    """Show ranking of Juniors"""
+
+    def __init__(self, database):
+        """Initialize command ranking Junior
+        """
+        Command.__init__(self, database)
+
+    def execute(self):
+        cur = self.database.conn.cursor()
+        print("NAME--------------------POINTS")
+        for row in cur.execute("SELECT name,points from players WHERE junior=1"):
+            print("%24s%6s" % row)
+        
