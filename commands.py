@@ -83,7 +83,8 @@ class CommandPoints(Command):
         cur.execute("SELECT id, points from players where name=:name", {"name" :self.name })
         row = cur.fetchone()
         if row is None:
-            print("Wrong name!")
+            cur.execute("INSERT INTO players (name, junior, points) VALUES (:name, 0, :points)",
+                    {"name": self.name, "points": self.points})
             return
         row_id = row[0]
         points = row[1]
