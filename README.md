@@ -8,14 +8,14 @@ ktoré následne vykoná.
 ##### Zoznam príkazov:
 
 `points <name> <number>`
-*  Pridá hráčovi <name> <number> bodov. Číslo môže byť aj záporné.
-*  Ak hráč <name> ešte nie je evidovaný pridá ho do zoznamu s <number> bodmi.
+*  Pridá hráčovi `<name> <number>` bodov. Číslo môže byť aj záporné.
+*  Ak hráč `<name>` ešte nie je evidovaný pridá ho do zoznamu s <number> bodmi.
 
 `reduce <number>`
 *  Zníži počet bodov každého hráča o <number>%. Výsledok sa zaokrúhli na celé čísla nadol.
 
 `junior <name>`
-*  Označí, že hráč <name> je junior
+*  Označí, že hráč `<name>` je junior
 
 `ranking` 
 *  Vypíše celé poradie. Hráčov zoradíme podľa počtu bodov.
