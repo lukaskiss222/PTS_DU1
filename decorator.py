@@ -23,16 +23,26 @@ def login_decorator(Cls):
             :returns: return attribute
             """
             try:
-                x = super(NewCls,self).__getattribute__(s)
+                # I call parent __getattribute__, 
+                # because if I dont do it. It will loop forever.
+                # __getattribute__ return attribute of class
+                x = super(NewCls, self).__getattribute__(s)
             except:
-                pass #not find in my class, should look in instance
+                pass # not find in my class, should look in instance
             else:
-                return x #i find the attribute in my class, just return it
-
+                return x # I find the attribute in my class, just return it
+            
+            # My class (decorator) don t have attribute s, so I ask
+            # if the decorated class has that attribute.
             x = self.oInstance.__getattribute__(s)
             return x
 
         def execute(self):
+            """
+            This function decorates execute
+            and before execute function execute of oInstance
+            first call login function and then execute oInstance execute
+            """
             if self.login.login():
                 self.oInstance.execute()
             else:

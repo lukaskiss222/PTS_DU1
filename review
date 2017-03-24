@@ -1,0 +1,4 @@
+1. Nefunguje kľúčový príkaz points, pri každom pokuse o pridanie hráča vypíše "Wrong name!".
+
+2.  Súbor decorator.py je nedostatočne okomentovaný.
+    Funkcia sha(str) z database.py sa nikde nepoužíva
